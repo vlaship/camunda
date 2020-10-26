@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1tkj3ut" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.3.0">
+  <bpmn:process id="processCheck" name="processCheck" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0ixbdrk</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="GenerateDelegate" name="Generate" camunda:delegateExpression="${generateDelegate}">
+      <bpmn:incoming>Flow_0ixbdrk</bpmn:incoming>
+      <bpmn:outgoing>Flow_01n73vu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0ixbdrk" sourceRef="StartEvent_1" targetRef="GenerateDelegate" />
+    <bpmn:endEvent id="Event_15xs73h">
+      <bpmn:incoming>Flow_1cyc8yw</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_01n73vu" sourceRef="GenerateDelegate" targetRef="LoggerDelegate" />
+    <bpmn:exclusiveGateway id="Gateway_1klwnrs">
+      <bpmn:incoming>Flow_1gyct2a</bpmn:incoming>
+      <bpmn:outgoing>Flow_02e9h1r</bpmn:outgoing>
+      <bpmn:outgoing>Flow_01yk9ei</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_02e9h1r" name="true" sourceRef="Gateway_1klwnrs" targetRef="TrueDelegate">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{result}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1cyc8yw" sourceRef="TrueDelegate" targetRef="Event_15xs73h" />
+    <bpmn:sequenceFlow id="Flow_01yk9ei" name="false" sourceRef="Gateway_1klwnrs" targetRef="FalseDelegate">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{not result}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_10xutvr">
+      <bpmn:incoming>Flow_0f3pd7n</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0f3pd7n" sourceRef="FalseDelegate" targetRef="Event_10xutvr" />
+    <bpmn:serviceTask id="TrueDelegate" name="True" camunda:delegateExpression="${trueDelegate}">
+      <bpmn:incoming>Flow_02e9h1r</bpmn:incoming>
+      <bpmn:outgoing>Flow_1cyc8yw</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="FalseDelegate" name="False" camunda:delegateExpression="${falseDelegate}">
+      <bpmn:incoming>Flow_01yk9ei</bpmn:incoming>
+      <bpmn:outgoing>Flow_0f3pd7n</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1gyct2a" sourceRef="LoggerDelegate" targetRef="Gateway_1klwnrs" />
+    <bpmn:serviceTask id="LoggerDelegate" name="Log" camunda:delegateExpression="${loggerDelegate}">
+      <bpmn:incoming>Flow_01n73vu</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gyct2a</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="processCheck">
+      <bpmndi:BPMNEdge id="Flow_01n73vu_di" bpmnElement="Flow_01n73vu">
+        <di:waypoint x="380" y="217" />
+        <di:waypoint x="500" y="217" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ixbdrk_di" bpmnElement="Flow_0ixbdrk">
+        <di:waypoint x="215" y="217" />
+        <di:waypoint x="280" y="217" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02e9h1r_di" bpmnElement="Flow_02e9h1r">
+        <di:waypoint x="750" y="192" />
+        <di:waypoint x="750" y="120" />
+        <di:waypoint x="870" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="791" y="133" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01yk9ei_di" bpmnElement="Flow_01yk9ei">
+        <di:waypoint x="750" y="242" />
+        <di:waypoint x="750" y="310" />
+        <di:waypoint x="870" y="310" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="788" y="283" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gyct2a_di" bpmnElement="Flow_1gyct2a">
+        <di:waypoint x="600" y="217" />
+        <di:waypoint x="725" y="217" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1cyc8yw_di" bpmnElement="Flow_1cyc8yw">
+        <di:waypoint x="970" y="120" />
+        <di:waypoint x="1062" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f3pd7n_di" bpmnElement="Flow_0f3pd7n">
+        <di:waypoint x="970" y="310" />
+        <di:waypoint x="1072" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="199" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1phdqjq_di" bpmnElement="TrueDelegate">
+        <dc:Bounds x="870" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1r128rr_di" bpmnElement="FalseDelegate">
+        <dc:Bounds x="870" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1klwnrs_di" bpmnElement="Gateway_1klwnrs" isMarkerVisible="true">
+        <dc:Bounds x="725" y="192" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_10xutvr_di" bpmnElement="Event_10xutvr">
+        <dc:Bounds x="1072" y="292" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1h8mwdc_di" bpmnElement="GenerateDelegate">
+        <dc:Bounds x="280" y="177" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_15xs73h_di" bpmnElement="Event_15xs73h">
+        <dc:Bounds x="1062" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0rm9tme_di" bpmnElement="LoggerDelegate">
+        <dc:Bounds x="500" y="177" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

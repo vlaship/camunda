@@ -1,0 +1,10 @@
+camunda:
+  admin-user:
+    id: demo
+    password: demo
+
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2

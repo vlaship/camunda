@@ -1,15 +1,15 @@
-package vlaship.delegate
+package vlaship.camunda.delegate
 
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.JavaDelegate
 import org.springframework.stereotype.Component
-import vlaship.service.TestService
+import vlaship.camunda.service.TestService
 
 @Component
-class FalseDelegate(private val testService: TestService) : JavaDelegate {
+class TrueDelegate(private val testService: TestService) : JavaDelegate {
 
     override fun execute(execution: DelegateExecution) {
-        testService.printFalse()
+        testService.printTrue()
     }
 
 }

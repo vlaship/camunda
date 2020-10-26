@@ -1,4 +1,4 @@
-package vlaship.delegate
+package vlaship.camunda.delegate
 
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.JavaDelegate

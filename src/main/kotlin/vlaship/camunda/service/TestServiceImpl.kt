@@ -1,4 +1,4 @@
-package vlaship.service
+package vlaship.camunda.service
 
 import org.springframework.stereotype.Service
 

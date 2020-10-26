@@ -1,4 +1,4 @@
-package vlaship.api
+package vlaship.camunda.api
 
 import org.camunda.bpm.engine.RuntimeService
 import org.springframework.web.bind.annotation.GetMapping

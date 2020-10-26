@@ -11,13 +11,13 @@ class LoggerDelegate : JavaDelegate {
 
     override fun execute(execution: DelegateExecution) {
         logger.info(
-            "\n\n ... LoggerDelegate invoke by "
+            "result [${execution.getVariable("result") as Boolean}] | "
                     + "processDefinitionId=${execution.processDefinitionId}, "
                     + "activityId=${execution.currentActivityId}, "
                     + "activityName='${execution.currentActivityName}', "
                     + "processInstanceId=${execution.processInstanceId}, "
                     + "businessKey=${execution.businessKey}, "
-                    + "executionId=${execution.id}\n\n"
+                    + "executionId=${execution.id}"
         )
     }
 }
